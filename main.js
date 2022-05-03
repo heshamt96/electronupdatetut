@@ -7,7 +7,8 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
+        nodeIntegration: true,
+        contextIsolation: false,
     },
   });
   mainWindow.loadFile("index.html");
@@ -37,6 +38,7 @@ app.on("activate", function () {
 
 ipcMain.on("app_version", (event) => {
   event.sender.send("app_version", { version: app.getVersion() });
+  console.log(app.getVersion())
 });
 autoUpdater.on("update-available", () => {
   mainWindow.webContents.send("update_available");
